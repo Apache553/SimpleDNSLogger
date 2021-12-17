@@ -8,23 +8,28 @@ option java_outer_classname = "SimpleDNSLogger";
 package SimpleDNSLogger;
 
 service DNSLogger {
-	rpc Subscribe (Empty) returns (stream DNSLogResult)	{}
-	rpc CreateNotification (Session) returns (NotificationDescriptor) {}
+	rpc ObserveDnsQuery(ObservationRequest) returns (ObservationResult) {}
+	rpc GetServerConfig(Identity) returns (ServerConfig) {}
 }
 
-message Empty {
+message Identity
+{
+	string psk = 1;
 }
 
-message Session {
-	string id = 1;
+message ObservationRequest
+{
+	Identity identity = 1;
+	string expectedName = 2;
 }
 
-message DNSLogResult {
-	int32 id = 1;
-	string ipAddress = 2;
+message ObservationResult
+{
+	string observedName = 1;
+	string sender = 2;
 }
 
-message NotificationDescriptor {
-	int32 id = 1;
-	string domain = 2;
+message ServerConfig
+{
+	string domain = 1;
 }

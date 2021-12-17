@@ -11,12 +11,13 @@ file(GLOB PROTO_FILES
 
 set(SOURCE_FILES
     "Main.cpp"
- "DnsServer.cpp")
+ "DnsServer.cpp" "Rpc.cpp")
 
 set(HEADER_FILES
  "Main.h" "Rpc.h" "DnsServer.h")
 
 add_executable (SimpleDNSLogger ${SOURCE_FILES} ${HEADER_FILES} ${PROTO_FILES})
+target_precompile_headers(SimpleDNSLogger PRIVATE Pch.h)
 target_compile_features(SimpleDNSLogger PRIVATE cxx_std_17)
 target_include_directories(SimpleDNSLogger PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
 target_link_libraries(SimpleDNSLogger
